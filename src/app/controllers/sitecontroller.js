@@ -1,6 +1,6 @@
-const courses = require('../../models/courese')
+const courses = require('../../models/Courses')
 const {mutipleMongooseToObject} = require('../../util/mongoose')
-class NewsController{
+class SiteController{
     //[get]/news
     index(req, res,next){
         courses.find({})
@@ -15,4 +15,4 @@ class NewsController{
         res.render('search');
     }
 }
-module.exports = new NewsController
+module.exports = new SiteController

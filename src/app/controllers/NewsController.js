@@ -1,4 +1,4 @@
-const courses = require('../../models/courese')
+const courses = require('../../models/Courses')
 class NewsController{
     //[get]/news
     index(req, res){

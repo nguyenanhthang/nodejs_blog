@@ -12,6 +12,12 @@ app.use('/public',express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({
     extended:true
 }))
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())
 app.use(express.json())
 // HTTP logger
 app.use(morgan('combined'))

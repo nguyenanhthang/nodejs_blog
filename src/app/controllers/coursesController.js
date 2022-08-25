@@ -24,5 +24,19 @@ class CoursesController{
         .then(()=> res.redirect('/'))
         .catch(next)
     }
+    //[get]/courses/:_id/edit
+    edit(req,res,next){
+        Courses.findById(req.params._id)
+            .then(courses=> res.render('courses/edit',{
+                courses:mongooseToObject(courses)
+            }))
+            .catch(next)
+    }
+    //[get]/courses/edit/update
+    update(req,res,next){
+        Courses.updateOne({_id:req.params._id},req.body)
+            .then(()=>res.redirect('/me/stored/courses'))
+            .catch(next)
+    }
 }
 module.exports = new CoursesController

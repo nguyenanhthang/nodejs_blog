@@ -32,11 +32,17 @@ class CoursesController{
             }))
             .catch(next)
     }
-    //[get]/courses/edit/update
+    //[put]/courses/edit/update
     update(req,res,next){
         Courses.updateOne({_id:req.params._id},req.body)
             .then(()=>res.redirect('/me/stored/courses'))
             .catch(next)
+    }
+    //[delete]/courses/id/delete
+    delete(req,res,next){
+        Courses.deleteOne({_id:req.params._id})
+        .then(()=> res.redirect('back'))
+        .catch(next)
     }
 }
 module.exports = new CoursesController

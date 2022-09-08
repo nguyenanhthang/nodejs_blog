@@ -56,7 +56,7 @@ function () {
           courses: mongooseToObject(courses)
         });
       })["catch"](next);
-    } //[get]/courses/edit/update
+    } //[put]/courses/edit/update
 
   }, {
     key: "update",
@@ -65,6 +65,16 @@ function () {
         _id: req.params._id
       }, req.body).then(function () {
         return res.redirect('/me/stored/courses');
+      })["catch"](next);
+    } //[delete]/courses/id/delete
+
+  }, {
+    key: "delete",
+    value: function _delete(req, res, next) {
+      Courses.deleteOne({
+        _id: req.params._id
+      }).then(function () {
+        return res.redirect('back');
       })["catch"](next);
     }
   }]);

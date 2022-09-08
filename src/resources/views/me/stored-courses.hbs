@@ -10,17 +10,55 @@
         </thead>
         <tbody>
             {{#each courses}}
-                <tr>
-                    <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.name}}</td>
-                    <td>{{this.level}}</td>
-                    <td>{{this.createdAt}}</td>
-                    <td>
-                        <a href="/courses/{{this._id}}/edit" class="btn btn-link">Edit</a>
-                        <a href="" class="btn btn-link">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Edit</a>
+                    <a href=""  data-toggle="modal" data-target="#exampleModal" data-id="{{this._id}}" class="btn btn-link">Delete</a>
+                </td>
+            </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+<div id="exampleModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete ?</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want delete this course?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="deleteCourse" type="button" class="btn btn-primary">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="post" name="delete-form"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let ID;
+        var deleteForm = document.forms['delete-form']
+        var btnDeleteCourses = document.getElementById('deleteCourse')
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = $(event.relatedTarget)
+            // Extract info from data-bs-* attributes
+            ID = button.data('id')
+            console.log(ID)
+        })
+        btnDeleteCourses.onclick= function(){
+            deleteForm.action='/courses/'+ ID +'?_method=delete'
+            deleteForm.submit()
+        }
+    })
+</script>
